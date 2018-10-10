@@ -19,6 +19,8 @@ public class ChatBot2
 	 */
 	public void chatLoop(String statement)
 	{
+		System.out.println ("test2");
+
 		Scanner in = new Scanner (System.in);
 		System.out.println (getGreeting());
 
