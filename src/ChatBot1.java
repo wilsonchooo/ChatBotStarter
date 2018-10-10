@@ -18,6 +18,8 @@ public class ChatBot1
 	 */
 	public void chatLoop(String statement)
 	{
+		System.out.println ("test1");
+
 		Scanner in = new Scanner (System.in);
 		System.out.println (getGreeting());
 
