@@ -43,7 +43,7 @@ public class ChatBot2
 	 */	
 	public String getGreeting()
 	{
-		System.out.println("Hey whats your name?");
+		System.out.println("Hey whats your name?.");
 		Scanner getname = new Scanner (System.in);
 		String name = getname.nextLine();
 		System.out.println("Hi" + name + "Do you like RPG games?");
