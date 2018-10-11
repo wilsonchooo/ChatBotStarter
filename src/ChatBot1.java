@@ -20,12 +20,23 @@ public class ChatBot1
 	{
 		System.out.println ("test1");
 
+		String[] games  = {"Street Fighter", "Smash Brothers", "Tekken"};
+
 		Scanner in = new Scanner (System.in);
 		System.out.println (getGreeting());
+		System.out.println("whats your name?");
+
+		statement=in.nextLine();
+		String name = statement;
+		System.out.println("hi "+name);
+		System.out.println("Do you like fighting games like " + games[(int) Math.floor(Math.random() * 4)]);
+
 
 
 		while (!statement.equals("Bye"))
 		{
+
+
 
 
 			statement = in.nextLine();
@@ -42,8 +53,9 @@ public class ChatBot1
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "whats poppin B";
 	}
+
 	
 	/**
 	 * Gives a response to a user statement
@@ -61,7 +73,16 @@ public class ChatBot1
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement,
+				"yes") >= 0)
+		{
+			response = "Who is your favorite character?";
+			emotion++;
+		}
+
+
+		else if (findKeyword(statement,
+				"no") >= 0)
 		{
 			response = "Why so negative?";
                 	emotion--;
@@ -90,7 +111,7 @@ public class ChatBot1
 		}
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
-			response = transformIWantStatement(statement);
+			response = transformILikeStatement(statement);
 		}	
 		else
 		{
@@ -129,7 +150,7 @@ public class ChatBot1
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
 	 */
-	private String transformIWantStatement(String statement)
+	private String transformILikeStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -140,9 +161,9 @@ public class ChatBot1
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want", 0);
+		int psn = findKeyword (statement, "I like", 0);
 		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
+		return "Do you really like " + restOfStatement + "?";
 	}
 	
 	
