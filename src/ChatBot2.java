@@ -47,6 +47,7 @@ public class ChatBot2
 		Scanner getname = new Scanner (System.in);
 		String name = getname.nextLine();
 		System.out.println("Hi" + name + "Do you like RPG games?");
+		return ("");
 	}
 	
 	/**
