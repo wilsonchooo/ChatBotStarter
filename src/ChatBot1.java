@@ -11,6 +11,19 @@ public class ChatBot1
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
+	boolean likegame = false;
+	String[] games  = {"Street Fighter", "Smash Brothers", "Tekken"};
+    String[] games2  = {"Injustice", "Mortal Kombat", "Dragon Ball FighterZ"};
+
+    String game = games[(int) Math.floor(Math.random() * 3)];
+	boolean start = true;
+
+    ChatBot2 chatbot2 = new ChatBot2();
+    ChatBot3 chatbot3 = new ChatBot3();
+    Scanner in = new Scanner (System.in);
+
+
+
 
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
@@ -18,35 +31,58 @@ public class ChatBot1
 	 */
 	public void chatLoop(String statement)
 	{
-		System.out.println ("test1");
 
-		String[] games  = {"Street Fighter", "Smash Brothers", "Tekken"};
 
-		Scanner in = new Scanner (System.in);
 		System.out.println (getGreeting());
 		System.out.println("whats your name?");
 
 		statement=in.nextLine();
 		String name = statement;
 		System.out.println("hi "+name);
-		System.out.println("Do you like fighting games like " + games[(int) Math.floor(Math.random() * 4)]);
+		System.out.println("Do you like fighting games like " + game + "?");
 
 
 
 		while (!statement.equals("Bye"))
 		{
-
-
-
-
 			statement = in.nextLine();
 			//getResponse handles the user reply
 			System.out.println(getResponse(statement));
-
-
 		}
 
+	//	if (statement.equals("yurr"))
+	//	{
+		if (statement.equals("Bye")){
+
+			if (likegame == true)
+				System.out.println("Good bye my fellow fighting game fan ;)");
+
+			else if (emotion ==1)
+				System.out.println("don't forget to try out "+ game +":)");
+
+
+			else if (emotion <= 0)
+				System.out.println("see ya loser");
+		}
+
+		if (statement.equals("bye"))
+		{
+			if (likegame == true)
+				System.out.println("Good bye my fellow fighting game fan ;)");
+
+			else if (emotion ==1)
+				System.out.println("don't forget to try out"+ game);
+
+
+			else if (emotion <= 0)
+				System.out.println("see ya loser");
+		}
+
+
 	}
+
+
+
 	/**
 	 * Get a default greeting 	
 	 * @return a greeting
@@ -76,18 +112,67 @@ public class ChatBot1
 		else if (findKeyword(statement,
 				"yes") >= 0)
 		{
-			response = "Who is your favorite character?";
+			if (start ==true)
+			{
+				System.out.println("yo, i like that game too!");
+				likegame = true;
+				response = "do you like 2d or 3d fighting games?";
+				emotion++;
+				start = false;
+			}
+			else
+				response = "what?";
+		}
+
+		else if (findKeyword(statement,
+				"2d") >= 0)
+		{
+			response = "I see, I like them both equally.";
 			emotion++;
 		}
 
-
 		else if (findKeyword(statement,
-				"no") >= 0)
+				"3d") >= 0)
 		{
-			response = "what genre of games do you like?";
-                	emotion--;
+			response = "2.5 is nice too lmao";
+			emotion++;
 		}
 
+        else if (findKeyword(statement,
+                "why") >= 0)
+        {
+            response = "no particular reason";
+            emotion++;
+        }
+
+
+		else if (findKeyword(statement,
+				"no") >= 0) {
+			if (start == true) {
+                emotion --;
+                start = false;
+                return "How about " + games2[(int) Math.floor(Math.random() * 3)] +" then?";
+            }
+                if (emotion == -1) {
+                    System.out.println ("ah, I see.. Maybe you would be better off talking with my other friends.");
+                    System.out.println("my first friend is really knowledgable about rpgs if thats your schtick.");
+                    System.out.println("my second friend is really good at about shooters if you want to talk to him.");
+
+
+                    String choice = in.nextLine();
+
+                    if (choice.equals("2"))
+                        chatbot2.chatLoop(statement);
+
+                    if (choice.equals("3"))
+                        chatbot3.chatLoop(statement);
+                    start = false;
+
+                }
+
+			else if (start == false)
+				response = "no to what?";
+		}
 		
 		else if (findKeyword(statement, "levin") >= 0)
 		{
@@ -99,6 +184,12 @@ public class ChatBot1
 			response = "Watch your backpacks, Mr. Folwell doesn't fall well.";
 			emotion++;
 		}
+		else if (findKeyword(statement, "goldman") >= 0)
+		{
+			response = "Go for the gold, man.";
+			emotion++;
+		}
+
 		else if (findKeyword(statement, "goldman") >= 0)
 		{
 			response = "Go for the gold, man.";
@@ -120,6 +211,27 @@ public class ChatBot1
 			response = transformmyfavorite(statement);
 
 		}
+		else if (findKeyword(statement, "do you",0) >= 0)
+		{
+			response = doyou(statement);
+
+		}
+
+		else if (findKeyword(statement, "what is",0) >= 0)
+		{
+			response = transformmyfavorite(statement);
+
+
+
+
+
+
+
+
+
+
+
+		}
 
 		else
 		{
@@ -135,6 +247,9 @@ public class ChatBot1
 	 * @param statement the user statement, assumed to contain "I want to"
 	 * @return the transformed statement
 	 */
+
+
+
 	private String transformIWantToStatement(String statement)
 	{
 		//  Remove the final period, if there is one
@@ -162,6 +277,7 @@ public class ChatBot1
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
+
 		String lastChar = statement.substring(statement
 				.length() - 1);
 		if (lastChar.equals("."))
@@ -171,7 +287,7 @@ public class ChatBot1
 		}
 		int psn = findKeyword (statement, "I like", 0);
 		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Do you really like " + restOfStatement + "?";
+		return "Wow I really like " + restOfStatement + " as well" ;
 	}
 
 	private String transformmyfavorite(String statement)
@@ -190,7 +306,37 @@ public class ChatBot1
 		return "Wow my favorite character is " + restOfStatement + " too!";
 	}
 
+	private String doyou(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "do you", 0);
+		String restOfStatement = statement.substring(psn + 6).trim();
+		return "Nah, i don't " + restOfStatement + ".";
+	}
 
+	private String transformwhatis(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "what is", 0);
+		String restOfStatement = statement.substring(psn + 7).trim();
+		return "Why do you want to " + restOfStatement + "?";
+	}
 
 	
 	
@@ -328,11 +474,14 @@ public class ChatBot1
 			"Could you say that again?",
 			"How's the weather my dude",
 			"I see..",
-			"Tell me more."
+			"Tell me more.",
+
 
 
 	};
-	private String [] randomAngryResponses = {"STOP TALKING TO ME.", "I WANT TO DIE", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "today is lit af", "You make me feel like a brand new pair of shoes."};
-	
+
+
+	private String [] randomAngryResponses = {"STOP TALKING TO ME.", "I WANT TO DIE", "The rage consumes me!","AHHHHHHHHHHH"};
+	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "today is lit af", "Wanna play some games together? :)", "You seem like a good guy."};
+
 }
