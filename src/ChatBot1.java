@@ -13,9 +13,8 @@ public class ChatBot1
 	int emotion = 0;
 	boolean likegame = false;
 	String[] games  = {"Street Fighter", "Smash Brothers", "Tekken"};
-    String[] games2  = {"Injustice", "Mortal Kombat", "Dragon Ball FighterZ"};
-
-    String game = games[(int) Math.floor(Math.random() * 3)];
+  	String[] games2  = {"Injustice", "Mortal Kombat", "Dragon Ball FighterZ"};
+   	String game = games[(int) Math.floor(Math.random() * 3)];
 	boolean start = true;
 
     ChatBot2 chatbot2 = new ChatBot2();
