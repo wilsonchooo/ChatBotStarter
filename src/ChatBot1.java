@@ -14,9 +14,10 @@ public class ChatBot1
 	boolean likegame = false;
 	String[] games  = {"Street Fighter", "Smash Brothers", "Tekken"};
   	String[] games2  = {"Injustice", "Mortal Kombat", "Dragon Ball FighterZ"};
+  	String[] allgames = {"Street Fighter", "Smash Brothers", "Tekken", "Injustice", "Mortal Kombat","Dragon Ball Fighterz","Soul Calibur","Mario Party"};
    	String game = games[(int) Math.floor(Math.random() * 3)];
 	boolean start = true;
-
+	String statement = "";
     ChatBot2 chatbot2 = new ChatBot2();
     ChatBot3 chatbot3 = new ChatBot3();
     Scanner in = new Scanner (System.in);
@@ -105,7 +106,7 @@ public class ChatBot1
 		
 		if (statement.length() == 0)
 		{
-			response = "Say something please.";
+			response = "Could you repeat that?";
 		}
 
 		else if (findKeyword(statement,
@@ -127,13 +128,15 @@ public class ChatBot1
 				"2d") >= 0)
 		{
 			response = "I see, I like them both equally.";
+			System.out.println("what games do you like?");
 			emotion++;
 		}
 
 		else if (findKeyword(statement,
 				"3d") >= 0)
 		{
-			response = "2.5 is nice too lmao";
+			response = "3d is nice too";
+
 			emotion++;
 		}
 
@@ -142,7 +145,18 @@ public class ChatBot1
         {
             response = "no particular reason";
             emotion++;
-        }
+			System.out.println("what games do you like?");
+
+		}
+
+		else if (findKeyword(statement,
+				"why") >= 0)
+		{
+			response = "no particular reason";
+			emotion++;
+			System.out.println("what games do you like?");
+
+		}
 
 
 		else if (findKeyword(statement,
@@ -229,6 +243,11 @@ public class ChatBot1
 
 
 
+
+		}
+
+		else if (findgame(statement,allgames) == true)
+		{
 
 		}
 
@@ -450,6 +469,17 @@ public class ChatBot1
 	 * Pick a default response to use if nothing else fits.
 	 * @return a non-committal string
 	 */
+
+	private boolean findgame(String statement, String[] allgames)
+	{
+		for (int i=0;i<allgames.length;i++)
+		{
+			if (statement.equals(allgames[i]))
+				return true;
+		}
+		return false;
+	}
+
 	private String getRandomResponse ()
 	{
 		Random r = new Random ();
