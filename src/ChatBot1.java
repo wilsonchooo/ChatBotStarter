@@ -17,6 +17,7 @@ public class ChatBot1
   	String[] allgames = {"Street Fighter", "Smash Brothers", "Tekken", "Injustice", "Mortal Kombat","Dragon Ball Fighterz","Soul Calibur","Mario Party"};
    	String game = games[(int) Math.floor(Math.random() * 3)];
 	boolean start = true;
+	boolean asking = false;
 	String statement = "";
     ChatBot2 chatbot2 = new ChatBot2();
     ChatBot3 chatbot3 = new ChatBot3();
@@ -127,8 +128,10 @@ public class ChatBot1
 		else if (findKeyword(statement,
 				"2d") >= 0)
 		{
-			response = "I see, I like them both equally.";
-			System.out.println("what games do you like?");
+			response = "what games do you like?";
+			System.out.println("I see, I like them both equally.");
+			asking = true;
+
 			emotion++;
 		}
 
@@ -246,10 +249,21 @@ public class ChatBot1
 
 		}
 
-		else if (findgame(statement,allgames) == true)
+		else if (findgame(statement,allgames) == true )
 		{
+			response = "yo i like that game too! I also like " + allgames[(int) Math.floor(Math.random() * allgames.length)];
+			asking = false;
 
 		}
+
+		else if (findgame(statement,allgames) == false&& asking == true)
+		{
+			response = "Oh, I've never heard of that game.";
+			asking = false;
+
+		}
+
+
 
 		else
 		{
@@ -477,6 +491,7 @@ public class ChatBot1
 			if (statement.equals(allgames[i]))
 				return true;
 		}
+
 		return false;
 	}
 
@@ -510,7 +525,7 @@ public class ChatBot1
 	};
 
 
-	private String [] randomAngryResponses = {"STOP TALKING TO ME.", "I WANT TO DIE", "The rage consumes me!","AHHHHHHHHHHH"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "today is lit af", "Wanna play some games together? :)", "You seem like a good guy."};
+	private String [] randomAngryResponses = {"STOP TALKING TO ME.", "I WANT TO DIE", "The rage consumes me!","AHHHHHHHHHHH", "im big angry"};
+	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "today is lit af", "I wanna touch your hand", "You seem like a good guy.", "you should add me on steam ;)"};
 
 }
