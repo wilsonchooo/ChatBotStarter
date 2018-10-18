@@ -173,14 +173,15 @@ public class ChatBot1
                     System.out.println ("ah, I see.. Maybe you would be better off talking with my other friends.");
                     System.out.println("my first friend is really knowledgable about rpgs if thats your schtick.");
                     System.out.println("my second friend is really good at about shooters if you want to talk to him.");
+					System.out.println("Do you like rpgs or shooting games?");
 
 
-                    String choice = in.nextLine();
+					String choice = in.nextLine();
 
-                    if (choice.equals("2"))
+                    if (choice.equals("rpgs") || choice.equals("i like rpg games") || choice.equals("rpg"))
                         chatbot2.chatLoop(statement);
 
-                    if (choice.equals("3"))
+					if (choice.equals("shooting") || choice.equals("i like shooting games") || choice.equals("shooter"))
                         chatbot3.chatLoop(statement);
                     start = false;
 
