@@ -138,7 +138,8 @@ public class ChatBot1
 		else if (findKeyword(statement,
 				"3d") >= 0)
 		{
-			response = "3d is nice too";
+			response = "what games do you like?";
+			System.out.println("3d is nice too");
 
 			emotion++;
 		}
@@ -183,6 +184,8 @@ public class ChatBot1
 
 					if (choice.equals("shooting") || choice.equals("i like shooting games") || choice.equals("shooter"))
                         chatbot3.chatLoop(statement);
+
+					else java.lang.System.exit(0);
                     start = false;
 
                 }
