@@ -12,9 +12,9 @@ public class ChatBot1
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
 	boolean likegame = false;
-	String[] games  = {"Street Fighter", "Smash Brothers", "Tekken"};
-  	String[] games2  = {"Injustice", "Mortal Kombat", "Dragon Ball FighterZ"};
-  	String[] allgames = {"Street Fighter", "Smash Brothers", "Tekken", "Injustice", "Mortal Kombat","Dragon Ball Fighterz","Soul Calibur","Mario Party"};
+	String[] games  = {"street Fighter", "smash Brothers", "tekken"};
+  	String[] games2  = {"injustice", "mortal kombat", "dragon ball fighterZ"};
+  	String[] allgames = {"street fighter", "smash brothers", "tekken", "injustice", "mortal kombat","dragon ball fighterz","soul calibur","mario party"};
    	String game = games[(int) Math.floor(Math.random() * 3)];
 	boolean start = true;
 	boolean asking = false;
@@ -178,6 +178,7 @@ public class ChatBot1
 
 
 					String choice = in.nextLine();
+					choice = choice.toLowerCase();
 
                     if (choice.equals("rpgs") || choice.equals("i like rpg games") || choice.equals("rpg"))
                         chatbot2.chatLoop(statement);
@@ -490,6 +491,7 @@ public class ChatBot1
 
 	private boolean findgame(String statement, String[] allgames)
 	{
+		statement = statement.toLowerCase();
 		for (int i=0;i<allgames.length;i++)
 		{
 			if (statement.equals(allgames[i]))
