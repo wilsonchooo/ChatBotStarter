@@ -1,3 +1,5 @@
+
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -43,43 +45,97 @@ public class ChatBot2
 	 */	
 	public String getGreeting()
 	{
-		System.out.println("Hey whats your name?.");
+		System.out.println("Hey whats your name?");
 		Scanner getname = new Scanner (System.in);
 		String name = getname.nextLine();
-		System.out.println("Hi" + name + "Do you like RPG games?");
-		return ("");
+		return "Hi " + name + ", do you like RPG games?";
+
 	}
 	
 	/**
 	 * Gives a response to a user statement
 	 * 
-	 * @param statement
+	 *  statement
 	 *            the user statement
 	 * @return a response based on the rules given
 	 */
-
+	public void correction()
+	{
+		if (emotion < -1)
+		{
+			emotion = -1;
+		}
+		if (emotion < 1)
+		{
+			emotion = 1;
+		}
+	}
 
 	public String getResponse(String statement)
 	{
 		String response = "";
-		
+
 		if (statement.length() == 0)
 		{
-			response = "I think you misstexted lol.";
+			response = "I think you forgot to type.";
+		}
+		else if (findKeyword(statement, "favorite") >= 0)
+		{
+			response = "Can you type only the name of your favorite game , if its an RPG I may know it";
+			Scanner test = new Scanner (System.in);
+			String game = test.nextLine();
+			for (int count = 0; count < randomGames.length; count++)
+			{
+				if (game == randomGames[count])
+				{
+					response = "I'm a big fan of " + randomGames[count] + " too! It's actually one of my favorite games!";
+				}
+			}
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, "suck") >= 0)
 		{
 			response = "You good?";
                 	emotion--;
 		}
-		
+		else if (findKeyword(statement, "bad") >= 0)
+		{
+			response = "Why is it bad?";
+			emotion--;
+		}
+		else if (findKeyword(statement, "hate") >= 0)
+		{
+			response = "You sure you mean hate, its a strong word afterall ain't it?";
+			emotion--;
+		}
+		else if (findKeyword(statement, "good") >= 0)
+		{
+			response = "Nice";
+			emotion++;
+		}
+		else if (findKeyword(statement, "like") >= 0)
+		{
+			response = "That's cool, I like games alot.";
+			emotion++;
+		}
 		else if (findKeyword(statement, "levin") >= 0)
 		{
 			response = "More like LevinTheDream lol.";
 			emotion++;
 		}
+		else if (findKeyword(statement, "fighting") >= 0)
+		{
+			System.out.println("Maybe you would like to talk to my other friend. He knows about fighting games");
+			ChatBot1 chatbot1 = new ChatBot1();
+			chatbot1.chatLoop(statement);
+		}
+		else if (findKeyword(statement, "shooting") >= 0)
+		{
+			System.out.println("Maybe you would like to talk to my other friend. He knows about shooting games");
+			ChatBot3 chatbot3 = new ChatBot3();
+			chatbot3.chatLoop(statement);
 
+		}
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I want to", 0) >= 0)
 		{
@@ -118,7 +174,21 @@ public class ChatBot2
 		String restOfStatement = statement.substring(psn + 9).trim();
 		return "What makes ya want to " + restOfStatement + "?";
 	}
-
+	private String transformILikeStatement(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "I like", 0);
+		String restOfStatement = statement.substring(psn + 9).trim();
+		return "Why do you like " + restOfStatement + "?";
+	}
 	
 	/**
 	 * Take a statement with "I want <something>." and transform it into 
@@ -139,7 +209,7 @@ public class ChatBot2
 		}
 		int psn = findKeyword (statement, "I want", 0);
 		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Yo boss what makes you want " + restOfStatement + "?";
+		return "What makes you want " + restOfStatement + "?";
 	}
 	
 	
@@ -269,14 +339,15 @@ public class ChatBot2
 	}
 	
 	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
-			"Do you really think so?",
+			"What consoles do you have? Or do you play on PC?",
+			"",
 			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
+			"I'm not sure how to respond to that, not that I mean it negatively.",
+			"So what games do you like?",
 			"Could you say that again?"
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
-	
+	private String [] randomAngryResponses = {"You put me in a bad mood with your negativity.", "I ain't speaking.", "You realize you upset me right?"};
+	private String [] randomHappyResponses = {"That actually made me smile", "Nice", "Heck yeah dude."};
+	private String [] randomGames = {"Skyrim", "Zelda", "Fallout", "Dark Souls", "Call of Duty", "Halo", ""};
+	private String [] consoles = { "PC", "Xbox One", "Xbox 360", "PS3", "PS4"};
 }
