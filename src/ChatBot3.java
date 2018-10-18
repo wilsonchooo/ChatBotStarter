@@ -66,7 +66,7 @@ public class ChatBot3
 		}
 		else if (findKeyword(statement, "no") >= 0)
 		{
-			response = "What games do you like?";
+			response = "What games do you prefer? I also like rpg and fighting games.";
 			emotion--;
 		}
 
