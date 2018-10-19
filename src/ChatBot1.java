@@ -265,8 +265,13 @@ public class ChatBot1
         // Response transforming what is statement
         else if (findKeyword(statement, "what is",0) >= 0)
 		{
-			response = transformwhatis(statement);
+			response = transformwhatis(statement,7);
 		}
+
+        else if (findKeyword(statement, "whats",0) >= 0)
+        {
+            response = transformwhatis(statement,5);
+        }
 
         // checks the user's input to see if it is a game in an array that is initialized earlier
         else if (findgame(statement,allgames) == true )
@@ -397,7 +402,7 @@ public class ChatBot1
      * @param statement the user statement, assumed to contain "do you"
      * @return the transformed statement
      */
-    private String transformwhatis(String statement)
+    private String transformwhatis(String statement, int letters)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -408,8 +413,20 @@ public class ChatBot1
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "what is", 0);
-		String restOfStatement = statement.substring(psn + 7).trim();
+
+        int psn = findKeyword(statement, "what is", 0);
+
+        if (letters == 7) {
+             psn = findKeyword(statement, "what is", 0);
+        }
+
+        else if (letters ==5)
+        {
+             psn = findKeyword(statement, "whats", 0);
+        }
+
+
+		String restOfStatement = statement.substring(psn + letters).trim();
 
         String[] splited = restOfStatement.split("\\s+");
 
