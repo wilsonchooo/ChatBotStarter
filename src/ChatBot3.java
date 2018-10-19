@@ -290,6 +290,7 @@ public class ChatBot3
 			"What do you like?",
 			"Where do you live?",
             "What is your favorite game?",
+            "That is awesome!",
 	};
 	private String [] randomAngryResponses = {"I disagree, shooting games are the best!", "FORTNITE IS THE BEST GAME EVER, there are no arguments.", "Disgusting"};
 	private String [] randomHappyResponses = {"Which shooting games do you like?", "My favorite game is Fortnite", "What is your favorite shooting game?","Do you like Call of Duty?", "What do you think about CS:GO."};
