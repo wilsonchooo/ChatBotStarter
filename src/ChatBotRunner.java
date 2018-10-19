@@ -34,13 +34,13 @@ public class ChatBotRunner
 			System.out.println("Shooter Games");
 
 			 String choice = in.nextLine();
-			 if (choice.equals("1"))
+			if (choice.equals("fighting") || choice.equals("fighter")|| choice.equals("fighting games") || choice.equals("fighter games"))
 			chatbot1.chatLoop(statement);
 
-			if (choice.equals("2"))
+			if (choice.equals("rpg") || choice.equals("rpg games")|| choice.equals("RPG") || choice.equals("RPG games"))
 				chatbot2.chatLoop(statement);
 
-			if (choice.equals("3"))
+			if (choice.equals("shooting") || choice.equals("shooter")|| choice.equals("shooting games") || choice.equals("shooter games"))
 				chatbot3.chatLoop(statement);
 
 			statement = in.nextLine();
