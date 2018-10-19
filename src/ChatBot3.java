@@ -1,6 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
-
+//Andrew Chen
 /**
  * A program to carry on conversations with a human user.
  * This version:
@@ -81,7 +81,7 @@ public class ChatBot3
 			ChatBot1 chatbot1 = new ChatBot1();
 			chatbot1.chatLoop(statement);
 		}
-		else if (findKeyword(statement, "role playing") >= 0)
+		else if (findKeyword(statement, "rpg") >= 0)
 		{
 			System.out.println("Maybe you would like to talk to my other friend.");
 			ChatBot2 chatbot2 = new ChatBot2();
@@ -97,13 +97,19 @@ public class ChatBot3
 		{
 			response = transformFavoriteGameStatement(statement);
 		}
+
+		else if (findKeyword(statement, "What is", 0) >= 0)
+		{
+			response = googleSearch(statement);
+		}
+
 		else
 		{
 			response = getRandomResponse();
 		}
 
 		return response;
-	}
+		}
 
 	/**
 	 * Take a statement with "I want to <something>." and transform it into
@@ -147,7 +153,7 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "My favorite game is", 0);
 		String restOfStatement = statement.substring(psn + 19).trim();
-		return "My favorite game is " + restOfStatement + " too!";
+		return "My favorite shooting game is " + restOfStatement + " too!";
 	}
 
 
@@ -157,7 +163,7 @@ public class ChatBot3
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIYouStatement(String statement)
+	private String googleSearch(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -169,11 +175,10 @@ public class ChatBot3
 					.length() - 1);
 		}
 
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
+		int psnOfI = findKeyword (statement, "What is", 0);
 
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-		return "Why do you " + restOfStatement + " me?";
+		String restOfStatement = statement.substring(psnOfI + 7).trim();
+		return "Here is a link to " + restOfStatement + " https://www.google.com/search?q=" + restOfStatement;
 	}
 
 
@@ -282,11 +287,12 @@ public class ChatBot3
 	private String [] randomNeutralResponses = {"Interesting, tell me more",
 			"Hmmm.",
 			"Do you really think so?",
-			"You don't say.",
-			"Could you say that again?",
+			"What do you like?",
+			"Where do you live?",
+            "What is your favorite game?",
 	};
 	private String [] randomAngryResponses = {"I disagree, shooting games are the best!", "FORTNITE IS THE BEST GAME EVER, there are no arguments.", "Disgusting"};
-	private String [] randomHappyResponses = {"Which shooting games do you like?", "That is awesome!", "What is your favorite shooting game?"};
+	private String [] randomHappyResponses = {"Which shooting games do you like?", "My favorite game is Fortnite", "What is your favorite shooting game?","Do you like Call of Duty?", "What do you think about CS:GO."};
 
 }
 
