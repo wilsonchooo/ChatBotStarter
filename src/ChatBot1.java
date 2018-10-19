@@ -1,6 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
-
+//Wilson Cho
 /**
  * A program to carry on conversations with a human user.
  * This version:
@@ -603,8 +603,12 @@ public class ChatBot1
 			"How's the weather my dude",
 			"I see..",
 			"Tell me more.",
-            "ya like pie?",
-            "man there are no good games lately"
+            "i like pie?",
+            "man there are no good games lately",
+            "What is your favorite game?",
+            "any good games lately?",
+            "have you played any good games lately",
+            "my favorite game is fortnite how about you?"
 
 
 
