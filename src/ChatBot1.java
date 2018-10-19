@@ -55,7 +55,7 @@ public class ChatBot1
 	//	{
 		if (statement.equals("Bye")){
 
-			if (likegame == true)
+			if (likegame)
 				System.out.println("Good bye my fellow fighting game fan ;)");
 
 			else if (emotion ==1)
@@ -65,10 +65,11 @@ public class ChatBot1
 			else if (emotion <= 0)
 				System.out.println("see ya loser");
 		}
+        // If the user says "bye" the bot will respond depending on the emotion that it currently has which changes based on the user's responses.
 
 		if (statement.equals("bye"))
 		{
-			if (likegame == true)
+			if (likegame)
 				System.out.println("Good bye my fellow fighting game fan ;)");
 
 			else if (emotion ==1)
@@ -102,28 +103,38 @@ public class ChatBot1
 	 * @return a response based on the rules given
 	 */
 	public String getResponse(String statement)
-	{
-		String response = "";
-		
-		if (statement.length() == 0)
-		{
-			response = "Could you repeat that?";
-		}
+    // has responses for the input of the user. Depending on the user input it can create google search urls and conversations.
 
-		else if (findKeyword(statement,
-				"yes") >= 0)
-		{
-			if (start ==true)
-			{
-				System.out.println("yo, i like that game too!");
-				likegame = true;
-				response = "do you like 2d or 3d fighting games?";
-				emotion++;
-				start = false;
-			}
-			else
-				response = "what?";
-		}
+    {
+        String response = "";
+//if the user did not put any input
+        if (statement.length() == 0)
+        {
+            response = "Could you repeat that?";
+        }
+
+        else if (findKeyword(statement,
+                "yes") >= 0)
+        {
+            emotion ++;
+            if (start)
+            {
+                System.out.println("yo, i like that game too!");
+                likegame = true;
+                response = "do you like 2d or 3d fighting games?";
+                emotion++;
+                start = false;
+            }
+            else if (emotion ==0)
+            {
+                response = "nice we found a game we both enjoy :)";
+            }
+
+            else
+                response = "what?";
+        }
+// If the program was just run it will ask a set series of questions. These are the responses to those questions
+// It also creates a response for "yes" after the introduction is done.
 
 		else if (findKeyword(statement,
 				"2d") >= 0)
@@ -139,62 +150,71 @@ public class ChatBot1
 				"3d") >= 0)
 		{
 			response = "what games do you like?";
-			System.out.println("3d is nice too");
-
+			System.out.println("3d is nice too.") ;
 			emotion++;
 		}
+
+        else if (findKeyword(statement,
+                "4d") >= 0)
+        {
+            response ="what games do you like?" ;
+            System.out.println("nice one lol!");
+            emotion++;
+        }
 
         else if (findKeyword(statement,
                 "why") >= 0)
         {
             response = "no particular reason";
             emotion++;
-			System.out.println("what games do you like?");
 
 		}
-
-		else if (findKeyword(statement,
-				"why") >= 0)
-		{
-			response = "no particular reason";
-			emotion++;
-			System.out.println("what games do you like?");
-
-		}
+        // if the user includes the word why in their statement then it will return a specific response.
 
 
-		else if (findKeyword(statement,
+        else if (findKeyword(statement,
 				"no") >= 0) {
 			if (start == true) {
-                emotion --;
-                start = false;
-                return "How about " + games2[(int) Math.floor(Math.random() * 3)] +" then?";
-            }
-                if (emotion == -1) {
+
+                System.out.println("How about " + games2[(int) Math.floor(Math.random() * 3)] +" then?");
+                String input = in.nextLine();
+                if (input.equals("yes") || input.equals("sure") || input.equals("yeah"))
+				{
+                    start = false;
+                    emotion ++;
+                    return "Nice, thats a good game.";
+
+                }
+				else{
+                    emotion --;
                     System.out.println ("ah, I see.. Maybe you would be better off talking with my other friends.");
-                    System.out.println("my first friend is really knowledgable about rpgs if thats your schtick.");
+                    System.out.println("my first friend is really knowledgeable about rpgs if thats your schtick.");
                     System.out.println("my second friend is really good at about shooters if you want to talk to him.");
-					System.out.println("Do you like rpgs or shooting games?");
+                    System.out.println("Do you like rpgs or shooting games?");
 
 
-					String choice = in.nextLine();
-					choice = choice.toLowerCase();
+                    String choice = in.nextLine();
+                    choice = choice.toLowerCase();
 
                     if (choice.equals("rpgs") || choice.equals("i like rpg games") || choice.equals("rpg"))
                         chatbot2.chatLoop(statement);
 
-					if (choice.equals("shooting") || choice.equals("i like shooting games") || choice.equals("shooter"))
+                    if (choice.equals("shooting") || choice.equals("i like shooting games") || choice.equals("shooter"))
                         chatbot3.chatLoop(statement);
 
-					else java.lang.System.exit(0);
+                    if (choice.equals("neither") || choice.equals("none") || choice.equals("i don't like games"))
+                        java.lang.System.exit(0);
                     start = false;
+				}
 
-                }
+			}
+
 
 			else if (start == false)
 				response = "no to what?";
 		}
-		
+
+
 		else if (findKeyword(statement, "levin") >= 0)
 		{
 			response = "More like LevinTheDream, amiright?";
@@ -222,41 +242,36 @@ public class ChatBot1
 		{
 			response = transformIWantToStatement(statement);
 		}
-		else if (findKeyword(statement, "I like",0) >= 0)
+
+        // Response transforming I like statement
+        else if (findKeyword(statement, "I like",0) >= 0)
 		{
 			response = transformILikeStatement(statement);
 
 		}
-		else if (findKeyword(statement, "my favorite",0) >= 0)
+
+        // Response transforming my favorite statement
+        else if (findKeyword(statement, "my favorite",0) >= 0)
 		{
 			response = transformmyfavorite(statement);
 
-		}
+		// Response transforming do you statement
+        }
 		else if (findKeyword(statement, "do you",0) >= 0)
 		{
 			response = doyou(statement);
-
 		}
 
-		else if (findKeyword(statement, "what is",0) >= 0)
+        // Response transforming what is statement
+        else if (findKeyword(statement, "what is",0) >= 0)
 		{
-			response = transformmyfavorite(statement);
-
-
-
-
-
-
-
-
-
-
-
+			response = transformwhatis(statement);
 		}
 
-		else if (findgame(statement,allgames) == true )
+        // checks the user's input to see if it is a game in an array that is initialized earlier
+        else if (findgame(statement,allgames) == true )
 		{
-			response = "yo i like that game too! I also like " + allgames[(int) Math.floor(Math.random() * allgames.length)];
+			response = "yo i like that game too! I also like " + allgames[(int) Math.floor(Math.random() * allgames.length)] +".";
 			asking = false;
 
 		}
@@ -265,11 +280,10 @@ public class ChatBot1
 		{
 			response = "Oh, I've never heard of that game.";
 			asking = false;
-
 		}
 
 
-
+//if none of the user's responses corresponds to a function then it randomly returns a response.
 		else
 		{
 			response = getRandomResponse();
@@ -286,7 +300,12 @@ public class ChatBot1
 	 */
 
 
-
+    /**
+     * Take a statement with "I want <something>." and transform it into
+     * "Would you really be happy if you had <something>?"
+     * @param statement the user statement, assumed to contain "I want"
+     * @return the transformed statement
+     */
 	private String transformIWantToStatement(String statement)
 	{
 		//  Remove the final period, if there is one
@@ -305,8 +324,8 @@ public class ChatBot1
 
 	
 	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
+	 * Take a statement with "I like <something>." and transform it into
+	 * "Wow I really like <something> as well?"
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
 	 */
@@ -324,9 +343,15 @@ public class ChatBot1
 		}
 		int psn = findKeyword (statement, "I like", 0);
 		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Wow I really like " + restOfStatement + " as well" ;
+		return "Wow I really like " + restOfStatement + " as well!" ;
 	}
 
+    /**
+     * Take a statement with "my favorite <something>." and responds with into
+     * "wow my favorite character is  <something> too?"
+     * @param statement the user statement, assumed to contain "my favorite"
+     * @return the transformed statement
+     */
 	private String transformmyfavorite(String statement)
 	{
 		//  Remove the final period, if there is one
@@ -343,6 +368,12 @@ public class ChatBot1
 		return "Wow my favorite character is " + restOfStatement + " too!";
 	}
 
+    /**
+     * Take a statement with "do you <something>." and responds with into
+     * "nah, I don't <something>."
+     * @param statement the user statement, assumed to contain "do you"
+     * @return the transformed statement
+     */
 	private String doyou(String statement)
 	{
 		//  Remove the final period, if there is one
@@ -359,7 +390,14 @@ public class ChatBot1
 		return "Nah, i don't " + restOfStatement + ".";
 	}
 
-	private String transformwhatis(String statement)
+
+    /**
+     * Take a statement with "what is <something>." and responds with into
+     * "Heres a link to what <something> is ."
+     * @param statement the user statement, assumed to contain "do you"
+     * @return the transformed statement
+     */
+    private String transformwhatis(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -372,10 +410,33 @@ public class ChatBot1
 		}
 		int psn = findKeyword (statement, "what is", 0);
 		String restOfStatement = statement.substring(psn + 7).trim();
-		return "Why do you want to " + restOfStatement + "?";
+
+        String[] splited = restOfStatement.split("\\s+");
+
+        if (splited.length == 1) {
+            return "Heres a link to what " + restOfStatement + " is -" + linkbuild(splited[0],"","","");
+        }
+
+        if (splited.length == 2) {
+            return "Heres a link to what " + restOfStatement + " is -" + linkbuild(splited[0],splited[1],"","");
+        }
+        if (splited.length == 3) {
+            return "Heres a link to what " + restOfStatement + " is -" + linkbuild(splited[0],splited[1],splited[2],"");
+        }
+
+        if (splited.length == 4) {
+            return "Heres a link to what " + restOfStatement + " is -" + linkbuild(splited[0],splited[1],splited[2],splited[3]);
+        }
+
+        else return "";
 	}
 
-	
+	//Builds a link using parameters and up to 4 words that the user inputs
+	private String linkbuild(String term1, String term2, String term3, String term4)
+    {
+        String link ="https://www.google.com/search?q="+term1+"+"+term2 + "+" +term3 + "+"+term4;
+        return link;
+    }
 	
 	/**
 	 * Take a statement with "I <something> you" and transform it into 
@@ -525,13 +586,15 @@ public class ChatBot1
 			"How's the weather my dude",
 			"I see..",
 			"Tell me more.",
+            "ya like pie?",
+            "man there are no good games lately"
 
 
 
 	};
 
 
-	private String [] randomAngryResponses = {"STOP TALKING TO ME.", "I WANT TO DIE", "The rage consumes me!","AHHHHHHHHHHH", "im big angry"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "today is lit af", "I wanna touch your hand", "You seem like a good guy.", "you should add me on steam ;)"};
+	private String [] randomAngryResponses = {"STOP TALKING TO ME.", "I WANT TO DIE", "The rage consumes me!","AHHHHHHHHHHH", "im big angry","grrrr","what the hell man","wtffffff"};
+	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "today is lit af", "I wanna touch your hand", "You seem like a good guy.", "you should add me on steam ;)","the weather sure is nice today","I sure do love talking to you","I am big happy"};
 
 }

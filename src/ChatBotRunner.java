@@ -29,9 +29,9 @@ public class ChatBotRunner
 			//This example has only chatbot1
 
 			System.out.println("Which chat bot do you want to talk to?");
-			System.out.println("1");
-			System.out.println("2");
-			System.out.println("3");
+			System.out.println("Fighting games");
+			System.out.println("RPG Games");
+			System.out.println("Shooter Games");
 
 			 String choice = in.nextLine();
 			 if (choice.equals("1"))
